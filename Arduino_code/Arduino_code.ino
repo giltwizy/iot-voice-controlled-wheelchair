@@ -51,12 +51,19 @@ void goLeft(){
   lcd.print("Going left..");
   digitalWrite(leftMotor,HIGH); //reverse polarity
   digitalWrite(rightMotor,HIGH);
+  delay(2000);
+  digitalWrite(leftMotor,LOW); 
+  digitalWrite(rightMotor,LOW);
+  
 }
 void goRight(){
   lcd.clear();
   lcd.print("Going right..");
   digitalWrite(leftMotor,HIGH);
   digitalWrite(rightMotor,HIGH); //reverse polarity
+  delay(2000);
+  digitalWrite(leftMotor,LOW); 
+  digitalWrite(rightMotor,LOW);
 }
 void stopmoving(){
   lcd.clear();

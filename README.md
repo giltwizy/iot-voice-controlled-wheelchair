@@ -12,3 +12,5 @@ Components
 
 4)Ultrasonic sensor HC-SR04
 
+5)Buzzer
+

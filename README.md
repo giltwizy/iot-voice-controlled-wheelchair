@@ -10,5 +10,5 @@ Components
 
 3)2 DC motors
 
-4)Ultrasonic sensor
+4)Ultrasonic sensor HC-SR04
 

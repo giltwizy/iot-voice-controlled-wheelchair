@@ -3,6 +3,9 @@
 
 #define trigPin = 10;
 #define echoPin = 13;
+#define leftMotor = 12;
+#define rightMotor = 11;
+#define buzzer=4;
 
 float duration,distance;
 
@@ -11,8 +14,7 @@ LiquidCrystal_I2C lcd(0x3F,2,1,0,4,5,6,7,3,POSITIVE);
 
 
 String voice;
-int leftMotor = 12;
-int rightMotor = 11;
+
 
 void goForward(){
   lcd.clear();
@@ -26,7 +28,10 @@ void obstacleStop(){
   lcd.print("Obstacle presence..");
   digitalWrite(leftMotor,LOW);
   digitalWrite(rightMotor,LOW);
-  //buzzer sound for 2 seconds
+  tone(buzzer,450);
+  delay(1000);
+  noTone(buzzer);
+  delay(2000);
   
 }
 void goBack(){  
@@ -62,7 +67,10 @@ void stopmoving(){
 void wrongCommand(){
   lcd.clear();
   lcd.print("WRONG COMMAND,TRY AGAIN..");
-  //Buzzer beeping for 1 second
+  tone(buzzer,450);
+  delay(1000);
+  noTone(buzzer);
+  delay(2000);
 }
 
 

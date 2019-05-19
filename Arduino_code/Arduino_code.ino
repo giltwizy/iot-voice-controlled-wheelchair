@@ -87,7 +87,7 @@ void setup() {
   delay(5000);
   lcd.print("TELL ME YOUR DIRECTION");
 
-  //voice reception
+  
   Serial.begin(9600);
   pinMode(leftMotor, OUTPUT);
   pinMode(rightMotor, OUTPUT);

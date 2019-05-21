@@ -22,86 +22,6 @@ float duration,distance;  //Duration and distance are determined by the Ultrason
 LiquidCrystal_I2C lcd(0x3F,2,1,0,4,5,6,7,3,POSITIVE);
 String voice;
 
-void setup() {
-  
-  Serial.begin(9600);
-
-  //Ultrasonic Sensor HC-SR04 pins initialization
-  pinMode(trigPin,OUTPUT);
-  pinMode(echoPin,INPUT);
-
-  //LCD I2C initialization
-  lcd.begin(16,2);
-  lcd.clear();
-  lcd.print("READY");
-  delay(5000);
-  lcd.print("TELL ME YOUR DIRECTION");
-  
-  
-  pinMode(leftMotorSpeed, OUTPUT);
-  pinMode(rightMotorSpeed, OUTPUT);
-  pinMode(leftMotorA, OUTPUT);
-  pinMode(leftMotorB, OUTPUT);
-  pinMode(rightMotorA, OUTPUT);
-  pinMode(rightMotorB, OUTPUT);
-  
-}
-
-
-void loop() {
-
-// Write a pulse to the HC-SR04 Trigger Pin
-  digitalWrite(trigPin, LOW);
-  delayMicroseconds(2);
-  digitalWrite(trigPin, HIGH);
-  delayMicroseconds(10);
-  digitalWrite(trigPin, LOW);
-  
-  // Measure the response from the HC-SR04 Echo Pin
-  duration = pulseIn(echoPin, HIGH);
-  
-  // Determine distance from duration
-  // Use 343 metres per second as speed of sound
-  
-  distance = (duration / 2) * 0.0343;
-
-  while(Serial.available()) {
-  delay(10);
-  char c=Serial.read();
-  if(c=='#'){
-      break;
-    }
-  voice += c;
-  }
-
-  if(voice.length() > 0){
-  Serial.println(voice);
-  if(voice == "go forward" || voice == "forward" || voice == "ford"|| voice == "beforward" || voice == "bailey" ||voice == "barry"  || voice == "bella" || voice == "belly" || voice == "trendy berry" || voice == "twin dembele" || voice == "10 dembele")
-    {
-      goForward() ;
-    }
-  else if(voice =="go back" || voice =="back"){
-      goBack();
-    }
-  else if(voice =="go left" || voice == "turn left" || voice == "left" || voice =="kushoto" || voice == "nenda kushoto" || voice == "kata kushoto"){
-      goLeft();
-    }
-  else if(voice =="go right" || voice =="turn right"  || voice == "right" || voice == "kulia" || voice =="coolio" || voice == "courier" || voice == "qualia" || voice == "colyer" || voice == "korea" || voice == "clear" || voice == "coolie"){
-      goRight();
-    }
-  else if( voice =="stop" || voice == "si mama" ){
-      stopMoving();
-    }
-  else
-  {
-    wrongCommand();
-  }
-  
-  voice="";
-  }
-  }
-
-
 //User defined functions
 
 void goForward(){
@@ -188,3 +108,82 @@ void wrongCommand(){
   noTone(buzzer);
   delay(2000);
 }
+
+void setup() {
+  
+  Serial.begin(9600);
+
+  //Ultrasonic Sensor HC-SR04 pins initialization
+  pinMode(trigPin,OUTPUT);
+  pinMode(echoPin,INPUT);
+
+  //LCD I2C initialization
+  lcd.begin(16,2);
+  lcd.clear();
+  lcd.print("READY");
+  delay(5000);
+  lcd.print("TELL ME YOUR DIRECTION");
+  
+  
+  pinMode(leftMotorSpeed, OUTPUT);
+  pinMode(rightMotorSpeed, OUTPUT);
+  pinMode(leftMotorA, OUTPUT);
+  pinMode(leftMotorB, OUTPUT);
+  pinMode(rightMotorA, OUTPUT);
+  pinMode(rightMotorB, OUTPUT);
+  
+}
+
+
+void loop() {
+
+// Write a pulse to the HC-SR04 Trigger Pin
+  digitalWrite(trigPin, LOW);
+  delayMicroseconds(2);
+  digitalWrite(trigPin, HIGH);
+  delayMicroseconds(10);
+  digitalWrite(trigPin, LOW);
+  
+  // Measure the response from the HC-SR04 Echo Pin
+  duration = pulseIn(echoPin, HIGH);
+  
+  // Determine distance from duration
+  // Use 343 metres per second as speed of sound
+  
+  distance = (duration / 2) * 0.0343;
+
+  while(Serial.available()) {
+  delay(10);
+  char c=Serial.read();
+  if(c=='#'){
+      break;
+    }
+  voice += c;
+  }
+
+  if(voice.length() > 0){
+  Serial.println(voice);
+  if(voice == "go forward" || voice == "forward" || voice == "ford"|| voice == "beforward" || voice == "bailey" ||voice == "barry"  || voice == "bella" || voice == "belly" || voice == "trendy berry" || voice == "twin dembele" || voice == "10 dembele")
+    {
+      goForward() ;
+    }
+  else if(voice =="go back" || voice =="back"){
+      goBack();
+    }
+  else if(voice =="go left" || voice == "turn left" || voice == "left" || voice =="kushoto" || voice == "nenda kushoto" || voice == "kata kushoto"){
+      goLeft();
+    }
+  else if(voice =="go right" || voice =="turn right"  || voice == "right" || voice == "kulia" || voice =="coolio" || voice == "courier" || voice == "qualia" || voice == "colyer" || voice == "korea" || voice == "clear" || voice == "coolie"){
+      goRight();
+    }
+  else if( voice =="stop" || voice == "si mama" ){
+      stopMoving();
+    }
+  else
+  {
+    wrongCommand();
+  }
+  
+  voice="";
+  }
+  }

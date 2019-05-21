@@ -3,11 +3,18 @@
 
 //Definitions of the Digital pins used
 
-#define trigPin = 10; //trigPin is the Ultrasonic Sensor HC-SR04 trigger pin
+#define trigPin = 12; //trigPin is the Ultrasonic Sensor HC-SR04 trigger pin
 #define echoPin = 13; //echoPin is the Ultrasonic Sensor HC-SR04 echo pin
-#define leftMotor = 12;
-#define rightMotor = 11;
-#define buzzer=4;
+#define buzzer=10;
+
+// Left Motor
+int leftMotorSpeed = 9;
+int leftMotorA = 8;
+int leftMotorB = 7;
+// Right Motor
+int rightMotorSpeed = 6;
+int rightMotorA = 5;
+int rightMotorB = 4;
 
 //Declaration of the variables that will be globally used
 
@@ -16,6 +23,8 @@ LiquidCrystal_I2C lcd(0x3F,2,1,0,4,5,6,7,3,POSITIVE);
 String voice;
 
 void setup() {
+  
+  Serial.begin(9600);
 
   //Ultrasonic Sensor HC-SR04 pins initialization
   pinMode(trigPin,OUTPUT);
@@ -28,9 +37,13 @@ void setup() {
   delay(5000);
   lcd.print("TELL ME YOUR DIRECTION");
   
-  Serial.begin(9600);
-  pinMode(leftMotor, OUTPUT);
-  pinMode(rightMotor, OUTPUT);
+  
+  pinMode(leftMotorSpeed, OUTPUT);
+  pinMode(rightMotorSpeed, OUTPUT);
+  pinMode(leftMotorA, OUTPUT);
+  pinMode(leftMotorB, OUTPUT);
+  pinMode(rightMotorA, OUTPUT);
+  pinMode(rightMotorB, OUTPUT);
   
 }
 
@@ -94,8 +107,15 @@ void loop() {
 void goForward(){
    lcd.clear();
    lcd.print("Going Foward..");
-   digitalWrite(leftMotor,HIGH);
-   digitalWrite(rightMotor,HIGH);
+   // turn on motor A
+  digitalWrite(leftMotorA, HIGH);
+  digitalWrite(leftMotorB, LOW);
+  // set speed to 200 out of possible range 0~255
+  analogWrite(leftMotorSpeed, 200);
+  digitalWrite(rightMotorA, HIGH);
+  digitalWrite(rightMotorB, LOW);
+  // set speed to 200 out of possible range 0~255
+  analogWrite(rightMotorSpeed, 200);
   }
 
 
@@ -106,15 +126,19 @@ void goBack(){
   else{
     lcd.clear();
     lcd.print("Going backward..");
-    digitalWrite(leftMotor,HIGH); //reverse polarity
-    digitalWrite(rightMotor,HIGH); //reverse polarity    
+    digitalWrite(leftMotorA, LOW);
+    digitalWrite(leftMotorB, HIGH); 
+    digitalWrite(rightMotorA, LOW);
+    digitalWrite(rightMotorB, HIGH);    
   }
 
 void goLeft(){
   lcd.clear();
   lcd.print("Going left..");
-  digitalWrite(leftMotor,HIGH); //reverse polarity
-  digitalWrite(rightMotor,HIGH);
+  digitalWrite(leftMotorA, LOW);
+  digitalWrite(leftMotorB, HIGH);
+  digitalWrite(rightMotorA, HIGH);
+  digitalWrite(rightMotorB, LOW);
   delay(2000);
   stopmoving();  
 }
@@ -123,8 +147,10 @@ void goLeft(){
 void goRight(){
   lcd.clear();
   lcd.print("Going right..");
-  digitalWrite(leftMotor,HIGH);
-  digitalWrite(rightMotor,HIGH); //reverse polarity
+  digitalWrite(leftMotorA, HIGH);
+  digitalWrite(leftMotorB, LOW);
+  digitalWrite(rightMotorA, LOW);
+  digitalWrite(rightMotorB, HIGH);
   delay(2000);
   stopmoving();
 }
@@ -133,16 +159,20 @@ void goRight(){
 void stopmoving(){
   lcd.clear();
   lcd.print("Stopping..");
-  digitalWrite(leftMotor,LOW);
-  digitalWrite(rightMotor,LOW);
+  digitalWrite(leftMotorA, LOW);
+  digitalWrite(leftMotorB, LOW); 
+  digitalWrite(rightMotorA, LOW);
+  digitalWrite(rightMotorB, LOW);
 }
 
 
 void obstacleStop(){
   lcd.clear();
   lcd.print("Obstacle presence..");
-  digitalWrite(leftMotor,LOW);
-  digitalWrite(rightMotor,LOW);
+  digitalWrite(leftMotorA, LOW);
+  digitalWrite(leftMotorB, LOW); 
+  digitalWrite(rightMotorA, LOW);
+  digitalWrite(rightMotorB, LOW);
   tone(buzzer,450);
   delay(1000);
   noTone(buzzer);

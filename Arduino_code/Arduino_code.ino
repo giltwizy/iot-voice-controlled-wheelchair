@@ -3,9 +3,9 @@
 
 //Definitions of the Digital pins used
 
-#define trigPin = 12; //trigPin is the Ultrasonic Sensor HC-SR04 trigger pin
-#define echoPin = 13; //echoPin is the Ultrasonic Sensor HC-SR04 echo pin
-#define buzzer=10;
+#define trigPin 12; //trigPin is the Ultrasonic Sensor HC-SR04 trigger pin
+#define echoPin 13; //echoPin is the Ultrasonic Sensor HC-SR04 echo pin
+#define buzzer 10;
 
 // Left Motor
 int leftMotorSpeed = 9;
@@ -39,6 +39,20 @@ void goForward(){
   }
 
 
+void obstacleStop(){
+  lcd.clear();
+  lcd.print("Obstacle presence..");
+  digitalWrite(leftMotorA, LOW);
+  digitalWrite(leftMotorB, LOW); 
+  digitalWrite(rightMotorA, LOW);
+  digitalWrite(rightMotorB, LOW);
+  tone(buzzer,450);
+  delay(1000);
+  noTone(buzzer);
+  delay(2000);  
+}
+
+
 void goBack(){  
   if (distance <= 30) {
     obstacleStop();
@@ -51,6 +65,17 @@ void goBack(){
     digitalWrite(rightMotorA, LOW);
     digitalWrite(rightMotorB, HIGH);    
   }
+
+
+ void stopmoving(){
+  lcd.clear();
+  lcd.print("Stopping..");
+  digitalWrite(leftMotorA, LOW);
+  digitalWrite(leftMotorB, LOW); 
+  digitalWrite(rightMotorA, LOW);
+  digitalWrite(rightMotorB, LOW);
+}
+
 
 void goLeft(){
   lcd.clear();
@@ -76,30 +101,6 @@ void goRight(){
 }
 
 
-void stopmoving(){
-  lcd.clear();
-  lcd.print("Stopping..");
-  digitalWrite(leftMotorA, LOW);
-  digitalWrite(leftMotorB, LOW); 
-  digitalWrite(rightMotorA, LOW);
-  digitalWrite(rightMotorB, LOW);
-}
-
-
-void obstacleStop(){
-  lcd.clear();
-  lcd.print("Obstacle presence..");
-  digitalWrite(leftMotorA, LOW);
-  digitalWrite(leftMotorB, LOW); 
-  digitalWrite(rightMotorA, LOW);
-  digitalWrite(rightMotorB, LOW);
-  tone(buzzer,450);
-  delay(1000);
-  noTone(buzzer);
-  delay(2000);  
-}
-
-
 void wrongCommand(){
   lcd.clear();
   lcd.print("WRONG COMMAND,TRY AGAIN..");
@@ -108,6 +109,7 @@ void wrongCommand(){
   noTone(buzzer);
   delay(2000);
 }
+
 
 void setup() {
   
@@ -122,16 +124,15 @@ void setup() {
   lcd.clear();
   lcd.print("READY");
   delay(5000);
-  lcd.print("TELL ME YOUR DIRECTION");
-  
+  lcd.clear();
+  lcd.print("TELL ME YOUR DIRECTION");  
   
   pinMode(leftMotorSpeed, OUTPUT);
   pinMode(rightMotorSpeed, OUTPUT);
   pinMode(leftMotorA, OUTPUT);
   pinMode(leftMotorB, OUTPUT);
   pinMode(rightMotorA, OUTPUT);
-  pinMode(rightMotorB, OUTPUT);
-  
+  pinMode(rightMotorB, OUTPUT);  
 }
 
 

@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">IOTWheelchair</string>
+    <string name="connect">CONNECT</string>
+    <string name="disconnect">DISCONNECT</string>
+    <string name="language">LANGUAGE</string>
+    <string name="status">Status:</string>
+    <string name="disconnected">Disconnected</string>
+    <string name="project_title">IOT VOICE CONTROLLED WHEELCHAIR</string>
+    <string name="result">RESULT</string>
+</resources>

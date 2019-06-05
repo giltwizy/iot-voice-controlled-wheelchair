@@ -3,14 +3,15 @@
 
 //Definitions of the Digital pins used
 
-#define trigPin 12; //trigPin is the Ultrasonic Sensor HC-SR04 trigger pin
-#define echoPin 13; //echoPin is the Ultrasonic Sensor HC-SR04 echo pin
-#define buzzer 10;
+#define trigPin 12 //trigPin is the Ultrasonic Sensor HC-SR04 trigger pin
+#define echoPin 13 //echoPin is the Ultrasonic Sensor HC-SR04 echo pin
+#define buzzer 10
 
 // Left Motor
 int leftMotorSpeed = 9;
 int leftMotorA = 8;
 int leftMotorB = 7;
+
 // Right Motor
 int rightMotorSpeed = 6;
 int rightMotorA = 5;
@@ -65,9 +66,10 @@ void goBack(){
     digitalWrite(rightMotorA, LOW);
     digitalWrite(rightMotorB, HIGH);    
   }
+}
 
 
- void stopmoving(){
+void stopMoving(){
   lcd.clear();
   lcd.print("Stopping..");
   digitalWrite(leftMotorA, LOW);
@@ -85,7 +87,7 @@ void goLeft(){
   digitalWrite(rightMotorA, HIGH);
   digitalWrite(rightMotorB, LOW);
   delay(2000);
-  stopmoving();  
+  stopMoving();  
 }
 
 
@@ -97,7 +99,7 @@ void goRight(){
   digitalWrite(rightMotorA, LOW);
   digitalWrite(rightMotorB, HIGH);
   delay(2000);
-  stopmoving();
+  stopMoving();
 }
 
 

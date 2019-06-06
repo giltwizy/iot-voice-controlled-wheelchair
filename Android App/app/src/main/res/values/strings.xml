@@ -7,4 +7,10 @@
     <string name="disconnected">Disconnected</string>
     <string name="project_title">IOT VOICE CONTROLLED WHEELCHAIR</string>
     <string name="result">RESULT</string>
+    <string name="touch">TOUCH</string>
+    <string name="voice">VOICE</string>
+    <string name="connecting">Connecting&#8230;</string>
+    <string name="connected">Connected</string>
+    <string name="notEnabled">Not Enabled</string>
+    <string name="unableToConnect">Unable To Connect</string>
 </resources>

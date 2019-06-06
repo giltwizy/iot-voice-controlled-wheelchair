@@ -50,7 +50,7 @@ void obstacleStop(){
   tone(buzzer,450);
   delay(1000);
   noTone(buzzer);
-  delay(2000);  
+  delay(2000);
 }
 
 
@@ -87,7 +87,7 @@ void goLeft(){
   digitalWrite(rightMotorA, HIGH);
   digitalWrite(rightMotorB, LOW);
   delay(2000);
-  stopMoving();  
+  stopMoving();
 }
 
 

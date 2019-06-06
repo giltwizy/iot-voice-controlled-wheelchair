@@ -466,31 +466,31 @@ public class Bluetooth {
             mmOutStream = tmpOut;
         }
 
-        public void run() {
-            Log.i(TAG, "BEGIN mConnectedThread");
-            byte[] buffer = new byte[1024];
-            int bytes;
-
-            // Keep listening to the InputStream while connected
-            while (true) {
-                try {
-                    // Read from the InputStream
-                    bytes = mmInStream.read(buffer);
-                    Log.d(TAG, "message bytes " + bytes);
-                    Log.d(TAG, "message string bytes " + String.valueOf(bytes));
-                    Log.d(TAG, "message buffer " + new String(buffer));
-                    // Send the obtained bytes to the UI Activity
-                    mHandler.obtainMessage(MESSAGE_READ, bytes,
-                            -1, buffer).sendToTarget();
-                } catch (IOException e) {
-                    Log.e(TAG, "disconnected", e);
-                    connectionLost();
-                    // Start the service over to restart listening mode
-                    Bluetooth.this.start();
-                    break;
-                }
-            }
-        }
+//        public void run() {
+//            Log.i(TAG, "BEGIN mConnectedThread");
+//            byte[] buffer = new byte[1024];
+//            int bytes;
+//
+//            // Keep listening to the InputStream while connected
+//            while (true) {
+//                try {
+//                    // Read from the InputStream
+//                    bytes = mmInStream.read(buffer);
+//                    Log.d(TAG, "message bytes " + bytes);
+//                    Log.d(TAG, "message string bytes " + String.valueOf(bytes));
+//                    Log.d(TAG, "message buffer " + new String(buffer));
+//                    // Send the obtained bytes to the UI Activity
+//                    mHandler.obtainMessage(MESSAGE_READ, bytes,
+//                            -1, buffer).sendToTarget();
+//                } catch (IOException e) {
+//                    Log.e(TAG, "disconnected", e);
+//                    connectionLost();
+//                    // Start the service over to restart listening mode
+//                    Bluetooth.this.start();
+//                    break;
+//                }
+//            }
+//        }
 
         /**
          * Write to the connected OutStream.
@@ -498,6 +498,7 @@ public class Bluetooth {
          * @param buffer
          *            The bytes to write
          */
+
         public void write(byte[] buffer) {
             try {
                 mmOutStream.write(buffer);
@@ -509,6 +510,10 @@ public class Bluetooth {
                 Log.e(TAG, "Exception during write", e);
             }
         }
+
+
+
+
 
         public void cancel() {
             try {
@@ -530,7 +535,8 @@ public class Bluetooth {
         if (message.length() > 0) {
             char EOT = (char)3 ;
             // Get the message bytes and tell the BluetoothChatService to write
-            byte[] send = (message + EOT).getBytes();
+           // byte[] send = (message + EOT).getBytes();
+            byte[] send = (message).getBytes();
             this.write(send);
         }
     }

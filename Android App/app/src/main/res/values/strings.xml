@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">IOTWheelchair</string>
+    <string name="app_name">IOT Wheelchair</string>
     <string name="connect">CONNECT</string>
     <string name="disconnect">DISCONNECT</string>
     <string name="language">LANGUAGE</string>
@@ -13,4 +13,13 @@
     <string name="connected">Connected</string>
     <string name="notEnabled">Not Enabled</string>
     <string name="unableToConnect">Unable To Connect</string>
+    <string name="mic_button">Mic Button</string>
+    <string name="internetofthings">InternetOfThings</string>
+
+    <string name="navigation_drawer_open">Open</string>
+    <string name="navigation_drawer_close">Close</string>
+    <string name="action_settings">Settings</string>
+    <string name="voice_command">Voice Command</string>
+    <string name="touch_command">Touch Command</string>
+    <string name="command_selection">Command Selection</string>
 </resources>

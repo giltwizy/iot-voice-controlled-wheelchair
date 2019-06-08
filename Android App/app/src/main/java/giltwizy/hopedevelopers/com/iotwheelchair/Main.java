@@ -1,7 +1,6 @@
 package giltwizy.hopedevelopers.com.iotwheelchair;
 
 import android.Manifest;
-import android.app.Activity;
 import android.bluetooth.BluetoothAdapter;
 import android.content.ActivityNotFoundException;
 import android.content.DialogInterface;
@@ -12,25 +11,31 @@ import android.os.Handler;
 import android.os.Message;
 import android.speech.RecognizerIntent;
 import android.support.annotation.NonNull;
+import android.support.design.widget.NavigationView;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
+import android.support.v4.view.GravityCompat;
+import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AlertDialog;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
-import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 import java.util.ArrayList;
 import java.util.Locale;
 
 
-public class Main extends Activity {
+public class Main extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{
 
     public final String TAG = "Main";
 
     private TextView status, resultTv;
     private Bluetooth bt;
-    private Switch bluetoothSwitch;
 
     private final int recordAudio_permission_code = 2;
     private static final int voiceInputCode = 11;
@@ -43,7 +48,7 @@ public class Main extends Activity {
 
         resultTv = (TextView) findViewById(R.id.voiceResult);
         status = (TextView) findViewById(R.id.textStatus);
-        bluetoothSwitch = (Switch) findViewById(R.id.bluetoothSwitch);
+
 
 
         findViewById(R.id.connect).setOnClickListener(new View.OnClickListener() {
@@ -64,6 +69,20 @@ public class Main extends Activity {
 
 
         check_recordAudio_permission();
+
+
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+
+
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.mdrawer_layout);
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
+                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+        drawer.addDrawerListener(toggle);
+        toggle.syncState();
+
+        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        navigationView.setNavigationItemSelectedListener(this);
 
     }
 
@@ -207,6 +226,73 @@ public class Main extends Activity {
         Toast.makeText(getApplicationContext(), "Bluetooth Turned OFF", Toast.LENGTH_SHORT).show();
 
 
+    }
+
+
+
+
+
+    @Override
+    public void onBackPressed() {
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.mdrawer_layout);
+        if (drawer.isDrawerOpen(GravityCompat.START)) {
+            drawer.closeDrawer(GravityCompat.START);
+        } else {
+            super.onBackPressed();
+        }
+    }
+
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.main, menu);
+        return true;
+    }
+
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle action bar item clicks here. The action bar will
+        // automatically handle clicks on the Home/Up button, so long
+        // as you specify a parent activity in AndroidManifest.xml.
+        //int id = item.getItemId();
+
+        //noinspection SimplifiableIfStatement
+
+
+        return super.onOptionsItemSelected(item);
+    }
+
+
+    @Override
+    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+        // Handle navigation view item clicks here.
+        int id = item.getItemId();
+
+        if (id == R.id.voiceNav) {
+            openVoiceActivity();
+        } else if (id == R.id.touchNav) {
+            openTouchActivity();
+
+        }
+
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.mdrawer_layout);
+        drawer.closeDrawer(GravityCompat.START);
+        return true;
+    }
+
+
+    private void openVoiceActivity() {
+        Intent voiceIntent = new Intent(getApplicationContext(),Main.class);
+        startActivity(voiceIntent);
+        overridePendingTransition(R.anim.slide_in_right,R.anim.slide_out_left);
+    }
+
+    private void openTouchActivity() {
+        Intent tigoIntent = new Intent(getApplicationContext(),Touch.class);
+        startActivity(tigoIntent);
+        overridePendingTransition(R.anim.slide_in_right,R.anim.slide_out_left);
     }
 
 

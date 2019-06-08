@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+xmlns:tools="http://schemas.android.com/tools"
+tools:showIn="navigation_view">
+
+<group android:checkableBehavior="single">
+    <item android:title="@string/command_selection">
+        <menu>
+
+            <item
+                android:id="@+id/voiceNav"
+                android:title="@string/voice_command" />
+            <item
+                android:id="@+id/touchNav"
+                android:title="@string/touch_command" />
+
+        </menu>
+    </item>
+</group>
+
+
+    <!--
+
+<item android:title="Communicate">
+    <menu>
+        <item
+            android:id="@+id/nav_share"
+
+            android:title="Share" />
+        <item
+            android:id="@+id/nav_send"
+
+            android:title="Send" />
+    </menu>
+</item>
+
+-->
+</menu>
+

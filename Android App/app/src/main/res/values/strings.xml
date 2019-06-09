@@ -2,24 +2,23 @@
     <string name="app_name">IOT Wheelchair</string>
     <string name="connect">CONNECT</string>
     <string name="disconnect">DISCONNECT</string>
-    <string name="language">LANGUAGE</string>
     <string name="status">Status:</string>
     <string name="disconnected">Disconnected</string>
-    <string name="project_title">IOT VOICE CONTROLLED WHEELCHAIR</string>
     <string name="result">RESULT</string>
-    <string name="touch">TOUCH</string>
-    <string name="voice">VOICE</string>
     <string name="connecting">Connecting&#8230;</string>
     <string name="connected">Connected</string>
     <string name="notEnabled">Not Enabled</string>
     <string name="unableToConnect">Unable To Connect</string>
     <string name="mic_button">Mic Button</string>
-    <string name="internetofthings">InternetOfThings</string>
-
+    <string name="internetOfThings">InternetOfThings</string>
     <string name="navigation_drawer_open">Open</string>
     <string name="navigation_drawer_close">Close</string>
-    <string name="action_settings">Settings</string>
     <string name="voice_command">Voice Command</string>
     <string name="touch_command">Touch Command</string>
     <string name="command_selection">Command Selection</string>
+    <string name="down_arrow">Down Arrow</string>
+    <string name="right_arrow">Right Arrow</string>
+    <string name="stop">Stop</string>
+    <string name="left_arrow">Left Arrow</string>
+    <string name="up_arrow">Up Arrow</string>
 </resources>

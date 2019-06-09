@@ -9,6 +9,7 @@ import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.os.Vibrator;
 import android.speech.RecognizerIntent;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
@@ -36,6 +37,7 @@ public class Main extends AppCompatActivity implements NavigationView.OnNavigati
 
     private TextView status, resultTv;
     private Bluetooth bt;
+    private Vibrator vibrator;
 
     private final int recordAudio_permission_code = 2;
     private static final int voiceInputCode = 11;
@@ -46,10 +48,10 @@ public class Main extends AppCompatActivity implements NavigationView.OnNavigati
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        resultTv = (TextView) findViewById(R.id.voiceResult);
-        status = (TextView) findViewById(R.id.textStatus);
+        resultTv = findViewById(R.id.voiceResult);
+        status = findViewById(R.id.textStatus);
 
-
+        vibrator = (Vibrator)getSystemService(VIBRATOR_SERVICE);
 
         findViewById(R.id.connect).setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
@@ -71,17 +73,17 @@ public class Main extends AppCompatActivity implements NavigationView.OnNavigati
         check_recordAudio_permission();
 
 
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
 
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.mdrawer_layout);
+        DrawerLayout drawer = findViewById(R.id.navDrawer);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.addDrawerListener(toggle);
         toggle.syncState();
 
-        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        NavigationView navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
     }
@@ -145,7 +147,6 @@ public class Main extends AppCompatActivity implements NavigationView.OnNavigati
         //You can set here own local Language.
         intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL, RecognizerIntent.LANGUAGE_MODEL_FREE_FORM);
         intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE, Locale.getDefault());
-        //intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE, "sw");
         intent.putExtra(RecognizerIntent.EXTRA_PROMPT, "Hello, Tell me your direction");
         try {
             startActivityForResult(intent, voiceInputCode);
@@ -168,12 +169,18 @@ public class Main extends AppCompatActivity implements NavigationView.OnNavigati
                 String recognizerResult = result.get(0).toLowerCase();
                 bt.sendMessage(recognizerResult);
                 Log.d("Transfer", "String transferred " + recognizerResult);
-
+                vibration();
             }
 
         }
 
 
+    }
+
+    private void vibration() {
+        if(vibrator.hasVibrator()){
+            vibrator.vibrate(100);
+        }
     }
 
 
@@ -234,7 +241,7 @@ public class Main extends AppCompatActivity implements NavigationView.OnNavigati
 
     @Override
     public void onBackPressed() {
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.mdrawer_layout);
+        DrawerLayout drawer = findViewById(R.id.navDrawer);
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else {
@@ -256,10 +263,12 @@ public class Main extends AppCompatActivity implements NavigationView.OnNavigati
         // Handle action bar item clicks here. The action bar will
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
-        //int id = item.getItemId();
+        int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-
+//        if (id == R.id.action_settings) {
+//            return true;
+//        }
 
         return super.onOptionsItemSelected(item);
     }
@@ -277,7 +286,7 @@ public class Main extends AppCompatActivity implements NavigationView.OnNavigati
 
         }
 
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.mdrawer_layout);
+        DrawerLayout drawer = findViewById(R.id.navDrawer);
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }

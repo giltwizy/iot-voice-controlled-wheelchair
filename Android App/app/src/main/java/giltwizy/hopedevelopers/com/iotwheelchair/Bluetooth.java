@@ -445,24 +445,24 @@ public class Bluetooth {
      */
     private class ConnectedThread extends Thread {
         private final BluetoothSocket mmSocket;
-        private final InputStream mmInStream;
+//        private final InputStream mmInStream;
         private final OutputStream mmOutStream;
 
         public ConnectedThread(BluetoothSocket socket, String socketType) {
             Log.d(TAG, "create ConnectedThread: " + socketType);
             mmSocket = socket;
-            InputStream tmpIn = null;
+//            InputStream tmpIn = null;
             OutputStream tmpOut = null;
 
             // Get the BluetoothSocket input and output streams
             try {
-                tmpIn = socket.getInputStream();
+//                tmpIn = socket.getInputStream();
                 tmpOut = socket.getOutputStream();
             } catch (IOException e) {
                 Log.e(TAG, "temp sockets not created", e);
             }
 
-            mmInStream = tmpIn;
+//            mmInStream = tmpIn;
             mmOutStream = tmpOut;
         }
 

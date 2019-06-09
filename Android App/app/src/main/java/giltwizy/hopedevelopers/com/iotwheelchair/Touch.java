@@ -19,19 +19,15 @@ public class Touch extends AppCompatActivity{
 
     private Bluetooth bt;
     private TextView status;
-//    private ImageButton up,left,stop,right,down;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_touch);
 
-        status = (TextView) findViewById(R.id.textStatus);
-//        up = (ImageButton) findViewById(R.id.upDirection);
-//        left = (ImageButton) findViewById(R.id.leftDirection);
-//        stop = (ImageButton) findViewById(R.id.stop);
-//        right = (ImageButton) findViewById(R.id.rightDirection);
-//        down = (ImageButton) findViewById(R.id.downDirection);
+        status = findViewById(R.id.textStatus);
+
 
         findViewById(R.id.connect).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -48,6 +44,7 @@ public class Touch extends AppCompatActivity{
         });
 
         bt = new Bluetooth(this, mHandler);
+
 
         if(getSupportActionBar() != null){
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);

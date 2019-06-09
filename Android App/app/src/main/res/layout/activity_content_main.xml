@@ -45,7 +45,6 @@
         android:weightSum="2">
 
         <TextView
-            android:id="@+id/statusLabel"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
@@ -70,7 +69,6 @@
     </LinearLayout>
 
     <android.support.constraint.ConstraintLayout
-        android:id="@+id/micCanvas"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@id/secondRow"
@@ -79,7 +77,6 @@
 
 
         <ImageView
-            android:id="@+id/imageView"
             android:layout_width="200dp"
             android:layout_height="200dp"
             android:layout_centerHorizontal="true"
@@ -89,13 +86,13 @@
             android:layout_marginEnd="8dp"
             android:layout_marginRight="8dp"
             android:layout_marginBottom="8dp"
-            android:src="@drawable/iot"
+            android:src="@mipmap/iot"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.0"
-            android:contentDescription="@string/internetofthings" />
+            android:contentDescription="@string/internetOfThings" />
 
 
         <TextView
@@ -118,7 +115,6 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <ImageView
-            android:id="@+id/micImage"
             android:layout_width="150dp"
             android:layout_height="150dp"
             android:layout_centerHorizontal="true"

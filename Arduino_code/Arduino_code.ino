@@ -3,8 +3,14 @@
 
 //Definitions of the Digital pins used
 
-#define trigPin 12 //trigPin is the Ultrasonic Sensor HC-SR04 trigger pin
-#define echoPin 13 //echoPin is the Ultrasonic Sensor HC-SR04 echo pin
+//Back Ultrasonic Sensor
+#define trigPinBack 12 //trigPinBack is the Ultrasonic Sensor HC-SR04 trigger pin
+#define echoPinBack 13 //echoPinBack is the Ultrasonic Sensor HC-SR04 echo pin
+
+//Forward Ultrasonic Sensor
+#define trigPinForward 14 //trigPinBack is the Ultrasonic Sensor HC-SR04 trigger pin
+#define echoPinForward 15 //echoPinBack is the Ultrasonic Sensor HC-SR04 echo pin
+
 #define buzzer 10
 
 // Left Motor
@@ -19,7 +25,7 @@ int rightMotorB = 4;
 
 //Declaration of the variables that will be globally used
 
-float duration,distance;  //Duration and distance are determined by the Ultrasonic Sensor HC-SR04
+float durationBack,distanceBack;  //Duration and distanceBack are determined by the Ultrasonic Sensor HC-SR04
 LiquidCrystal_I2C lcd(0x3F,2,1,0,4,5,6,7,3,POSITIVE);
 String voice;
 
@@ -55,7 +61,7 @@ void obstacleStop(){
 
 
 void goBack(){  
-  if (distance <= 30) {
+  if (distanceBack <= 30) {
     obstacleStop();
   }
   else{
@@ -117,9 +123,13 @@ void setup() {
   
   Serial.begin(9600);
 
-  //Ultrasonic Sensor HC-SR04 pins initialization
-  pinMode(trigPin,OUTPUT);
-  pinMode(echoPin,INPUT);
+  //Back Ultrasonic Sensor HC-SR04 pins initialization
+  pinMode(trigPinBack,OUTPUT);
+  pinMode(echoPinBack,INPUT);
+
+  //Front Ultrasonic Sensor HC-SR04 pins initialization
+  pinMode(trigPinForward,OUTPUT);
+  pinMode(echoPinForward,INPUT);
 
   //LCD I2C initialization
   lcd.begin(16,2);
@@ -140,20 +150,41 @@ void setup() {
 
 void loop() {
 
-// Write a pulse to the HC-SR04 Trigger Pin
-  digitalWrite(trigPin, LOW);
+// Write a pulse to the back HC-SR04 Trigger Pin
+  digitalWrite(trigPinBack, LOW);
   delayMicroseconds(2);
-  digitalWrite(trigPin, HIGH);
+  digitalWrite(trigPinBack, HIGH);
   delayMicroseconds(10);
-  digitalWrite(trigPin, LOW);
+  digitalWrite(trigPinBack, LOW);
+
+
+  // Write a pulse to the front HC-SR04 Trigger Pin
+  digitalWrite(trigPinForward, LOW);
+  delayMicroseconds(2);
+  digitalWrite(trigPinForward, HIGH);
+  delayMicroseconds(10);
+  digitalWrite(trigPinForward, LOW);
+  
   
   // Measure the response from the HC-SR04 Echo Pin
-  duration = pulseIn(echoPin, HIGH);
+  durationBack = pulseIn(echoPinBack, HIGH);
+  durationForward = pulseIn(echoPinForward, HIGH);
   
-  // Determine distance from duration
+  // Determine distanceBack from durationBack
   // Use 343 metres per second as speed of sound
   
-  distance = (duration / 2) * 0.0343;
+  distanceBack = (durationBack / 2) * 0.0343;
+  distanceForward = (durationBack / 2) * 0.0343;
+
+  if(distanceBack <= 30)
+  {
+    obstacleStop();
+  }
+
+  if(distanceForward <= 30)
+  {
+    obstacleStop();
+  }
 
   while(Serial.available()) {
   delay(10);
@@ -166,20 +197,20 @@ void loop() {
 
   if(voice.length() > 0){
   Serial.println(voice);
-  if(voice == "go forward" || voice == "forward" || voice == "ford"|| voice == "beforward" || voice == "bailey" ||voice == "barry"  || voice == "bella" || voice == "belly" || voice == "trendy berry" || voice == "twin dembele" || voice == "10 dembele")
+  if(voice == "go forward" || voice == "forward" || voice == "ford"|| voice == "beforward" || voice == "will ford" || voice == "go for it" || voice == "will forward" || voice == "go for ride" || voice == "well for ride" || voice == "well ford" || voice == "millford" || voice == "guilford" || voice == "go fly" || voice == "bailey" ||voice == "barry"  || voice == "bella" || voice == "belly" || voice == "trendy berry" || voice == "twin dembele" || voice == "10 dembele")
     {
       goForward() ;
     }
-  else if(voice =="go back" || voice =="back"){
+  else if(voice =="go back" || voice =="back" || voice == "will back" || voice == "call back"){
       goBack();
     }
   else if(voice =="go left" || voice == "turn left" || voice == "left" || voice =="kushoto" || voice == "nenda kushoto" || voice == "kata kushoto"){
       goLeft();
     }
-  else if(voice =="go right" || voice =="turn right"  || voice == "right" || voice == "kulia" || voice =="coolio" || voice == "courier" || voice == "qualia" || voice == "colyer" || voice == "korea" || voice == "clear" || voice == "coolie"){
+  else if(voice =="go right" || voice =="turn right" || voice == "girl right" || voice == "right" || voice == "kulia" || voice =="coolio" || voice == "courier" || voice == "qualia" || voice == "colyer" || voice == "korea" || voice == "clear" || voice == "coolie"){
       goRight();
     }
-  else if( voice =="stop" || voice == "si mama" ){
+  else if( voice =="stop" || voice == "si mama" ||voice == "stop moving" ){
       stopMoving();
     }
   else

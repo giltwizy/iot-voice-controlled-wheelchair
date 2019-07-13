@@ -37,9 +37,7 @@ void obstacleStop() {
   digitalWrite(rightMotorA, LOW);
   digitalWrite(rightMotorB, LOW);
   tone(buzzer, 1000);
-  // delay(1500);
-  //noTone(buzzer);
-  //delay(2000);
+  
 }
 
 
@@ -51,7 +49,7 @@ void goForward() {
   digitalWrite(leftMotorA, HIGH);
   digitalWrite(leftMotorB, LOW);
   // set speed to 200 out of possible range 0~255
-  analogWrite(leftMotorSpeed, 160);
+  analogWrite(leftMotorSpeed, 170);
   digitalWrite(rightMotorA, HIGH);
   digitalWrite(rightMotorB, LOW);
   // set speed to 200 out of possible range 0~255
@@ -60,7 +58,7 @@ void goForward() {
 
 void stopMoving() {
   lcd.clear();
-  lcd.print("Stopping..");
+  lcd.print("STOPPED");
   analogWrite(rightMotorSpeed, 0);
   analogWrite(leftMotorSpeed, 0);
   digitalWrite(leftMotorA, LOW);
@@ -72,7 +70,7 @@ void stopMoving() {
 
 void goBack() {
   lcd.clear();
-  lcd.print("Going backward..");
+  lcd.print("GOING BACKWARD");
   analogWrite(rightMotorSpeed, 150);
   analogWrite(leftMotorSpeed, 150);
   digitalWrite(leftMotorA, LOW);
@@ -104,7 +102,7 @@ void goRight() {
   digitalWrite(rightMotorA, LOW);
   digitalWrite(rightMotorB, HIGH);
   analogWrite(rightMotorSpeed, 150);
-  analogWrite(leftMotorSpeed, 150);
+  analogWrite(leftMotorSpeed, 170);
   delay(2000);
   stopMoving();
 }
@@ -115,7 +113,7 @@ void goRight() {
 
 void wrongCommand() {
   lcd.clear();
-  lcd.print("WRONG COMMAND,TRY AGAIN..");
+  lcd.print("WRONG COMMAND");
   tone(buzzer, 450);
   delay(1000);
   noTone(buzzer);
@@ -125,13 +123,12 @@ void wrongCommand() {
 void setup() {
 
   Serial.begin(9600);
-  Serial.println(" Salaam");
   lcd.begin();
   lcd.clear();
   lcd.print("READY");
   delay(5000);
   lcd.clear();
-  lcd.print("TELL ME YOUR DIRECTION");
+  lcd.print("GIVE DIRECTION");
 
 
   //pinMode(leftMotorSpeed, OUTPUT);
